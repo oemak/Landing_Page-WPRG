@@ -4,6 +4,14 @@
 	background-color: #FFFFFF;
 }
 
+#mainNav .btn-primary {
+    background-color: #2937f0;
+}
+
+#mainNav .btn-primary:hover {
+    background-color: #4c57ef;
+}
+
 #mainNav .navbar-brand:hover {
 	color: #2937f0;
 }
@@ -22,4 +30,25 @@
 
 .app-badge {
 	height: 3rem;
+}
+
+.herosection {
+	background-color: #f8f9fa;
+	padding-top: 6rem;
+	padding-bottom: 7rem;
+}
+
+article, section {
+	padding-top: 5rem;
+	padding-bottom: 5rem;
+}
+
+footer a {
+	color: rgba(255, 255, 255, 0.5);
+	text-decoration: none;
+}
+
+footer a:hover {
+	color: rgba(255, 255, 255, 0.75);
+	text-decoration: underline;
 }
