@@ -100,11 +100,11 @@ footer a:hover {
 	grid-gap: 16px;
   }
   
-  #about-us .header {
+#about-us .header {
 	grid-area: h;
-  }
+}
 
-  #about-us .header::after {
+#about-us .header::after {
     content: '';
     display: block;
     width: 20%;
@@ -115,19 +115,20 @@ footer a:hover {
     margin-top: 10px;
 }
   
-  #about-us .content {
+#about-us .content {
 	grid-area: c;
-  }
+}
   
-  #about-us .sidebar {
+#about-us .sidebar {
 	grid-area: s;
-  }
-  #about-us .sidebar img {
+}
+
+#about-us .sidebar img {
 	max-width: 100%;
 	height: auto;
-  }
+}
 
-  @media(min-width: 768px) {
+@media(min-width: 768px) {
 	#about-us {
 		display: grid;
 		grid-template:
@@ -135,10 +136,10 @@ footer a:hover {
 		  "c s" auto
 		  / 1fr 1fr;
 		grid-gap: 16px;
-	  }
-  }
+	}
+}
 
-  @media(min-width: 1200px) {
+@media(min-width: 1200px) {
 	#about-us {
 		display: grid;
 		grid-template:
@@ -146,7 +147,7 @@ footer a:hover {
 		  "c c s" 300px
 		  / 1fr 1fr 1fr;
 		grid-gap: 16px;
-	  }
+	}
 	#about-us .content {
 		margin-right: 4rem;
 	}
@@ -155,5 +156,5 @@ footer a:hover {
 		width: 100%;
 		margin-bottom: 4rem;
 	}
-  }
+}
 

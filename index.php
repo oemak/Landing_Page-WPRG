@@ -1,4 +1,3 @@
-<?php header("Access-Control-Allow-Origin: *"); ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -126,13 +125,13 @@
             <h2>App preview</h2>
             <div class="gallery-wrapper">
                 <div class="image-thumb-wrapper">
-                    <a href="assets/gallery-1.png" target="_blank"><img src="assets/gallery-1.png" /></a>
+                    <a href="assets/gallery-1.png" target="_blank"><img src="assets/gallery-1.png" alt="Screenshot 1"/></a>
                 </div>
                 <div class="image-thumb-wrapper">
-                    <a href="assets/gallery-2.png" target="_blank"><img src="assets/gallery-2.png" /></a>
+                    <a href="assets/gallery-2.png" target="_blank"><img src="assets/gallery-2.png" alt="Screenshot 2" /></a>
                 </div>
                 <div class="image-thumb-wrapper">
-                    <a href="assets/gallery-3.png" target="_blank"><img src="assets/gallery-3.png" /></a>
+                    <a href="assets/gallery-3.png" target="_blank"><img src="assets/gallery-3.png"  alt="Screenshot 3"/></a>
                 </div>
             </div>
         </section>
@@ -168,9 +167,9 @@
         <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header bg-gradient-primary-to-secondary p-4">
+                    <div class="modal-header p-4">
                         <h5 class="modal-title font-alt text-primary" id="feedbackModalLabel">Send feedback</h5>
-                        <button class="btn-close btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body border-0 p-4">
                         <form id="contactForm" novalidate method="post">
@@ -190,12 +189,6 @@
                                 <label for="message">Message</label>
                                 <div class="invalid-feedback">A message is required.</div>
                             </div>
-                            <div id="submitSuccessMessage">
-                                <div class="text-center mb-3">
-                                    <div class="fw-bolder">Form submission successful!</div>
-                                </div>
-                            </div>
-                            <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
                             <div class="d-grid"><button class="btn btn-primary rounded-pill btn-lg" id="submitButton" type="submit">Submit</button></div>
                             <?php
                                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -214,7 +207,7 @@
 
                                     if ($valid) {
 
-                                        $email_to = "oemak91@gmail.com";
+                                        $email_to = "s30289@pjwstk.edu.pl";
                                         $email_subject = "Sleepp Feedback Form";
 
                                         $email_message = "Message sent from Sleepp's feedback form\n\n";
@@ -223,7 +216,15 @@
                                         $email_message .= "SENDER NAME: " . $name . "\n";
                                         $email_message .= "MESSAGE:\n" . $message . "\n";
 
-                                        @mail($email_to, $email_subject, $email_message);
+                                        if(@mail($email_to, $email_subject, $email_message)) {
+                                            echo '<div id="submitSuccessMessage">
+                                                    <div class="text-center mb-3">
+                                                        <div class="fw-bolder">Form submission successful!</div>
+                                                    </div>
+                                                </div>';
+                                        } else {
+                                            echo '<div id="submitErrorMessage"><div class="text-center text-danger mt-3">Error submitting form!</div></div>';
+                                        }
                                     }
                                 }
                             ?>
