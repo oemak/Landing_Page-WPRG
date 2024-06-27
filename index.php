@@ -1,3 +1,4 @@
+<?php header("Access-Control-Allow-Origin: *"); ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -151,7 +152,6 @@
             </aside>
         </section>
         <section id="map" class="container">
-            
         </section>
         <footer class="bg-black text-center py-5">
             <div class="container px-5">
@@ -165,7 +165,75 @@
                 </div>
             </div>
         </footer>
+        <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-primary-to-secondary p-4">
+                        <h5 class="modal-title font-alt text-primary" id="feedbackModalLabel">Send feedback</h5>
+                        <button class="btn-close btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body border-0 p-4">
+                        <form id="contactForm" novalidate method="post">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="name" name="name" type="text" required maxlength="256" placeholder="Enter your name..."/>
+                                <label for="name">Full name</label>
+                                <div class="invalid-feedback">A name is required.</div>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="email" name="email" type="email" required maxlength="256" placeholder="name@example.com"/>
+                                <label for="email">Email address</label>
+                                <div class="invalid-feedback">An email is required.</div>
+                                <div class="invalid-feedback">Email is not valid.</div>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" id="message" name="message" type="text" required maxlength="2000" placeholder="Enter your message here..." style="height: 10rem"></textarea>
+                                <label for="message">Message</label>
+                                <div class="invalid-feedback">A message is required.</div>
+                            </div>
+                            <div id="submitSuccessMessage">
+                                <div class="text-center mb-3">
+                                    <div class="fw-bolder">Form submission successful!</div>
+                                </div>
+                            </div>
+                            <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                            <div class="d-grid"><button class="btn btn-primary rounded-pill btn-lg" id="submitButton" type="submit">Submit</button></div>
+                            <?php
+                                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                                    $name = isset($_POST['name']) ? $_POST['name'] : '';
+                                    $email_from = isset($_POST['email']) ? $_POST['email'] : '';
+                                    $message = isset($_POST['message']) ? $_POST['message'] : '';
+
+                                    $email_regex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
+                                    $name_regex = '/^[a-zA-Z\s\'-]+$/';
+
+                                    $valid = true;
+
+                                    if (!preg_match($email_regex, $email_from) || !preg_match($name_regex, $name)) {
+                                        $valid = false;
+                                    } 
+
+                                    if ($valid) {
+
+                                        $email_to = "oemak91@gmail.com";
+                                        $email_subject = "Sleepp Feedback Form";
+
+                                        $email_message = "Message sent from Sleepp's feedback form\n\n";
+
+                                        $email_message .= "SENDER EMAIL: " . $email_from . "\n";
+                                        $email_message .= "SENDER NAME: " . $name . "\n";
+                                        $email_message .= "MESSAGE:\n" . $message . "\n";
+
+                                        @mail($email_to, $email_subject, $email_message);
+                                    }
+                                }
+                            ?>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/form-validation.js"></script>
         <script>
             (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
               key: "AIzaSyC2AZEhsRspcG0udLO3Rc0r4DXVOUCrEok",
